@@ -57,20 +57,20 @@
             text-align: center;
         }
         .card::before {
-    content: "🌙";
-    position: absolute;
-    top: -16px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #ffffff;
-    font-size: 16px;
-    width: 30px;
-    height: 30px;
-    line-height: 28px;
-    border-radius: 50%;
-    border: 2px solid #d4af37;
-    box-sizing: content-box;
-}
+            content: "🌙";
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ffffff;
+            font-size: 16px;
+            width: 30px;
+            height: 30px;
+            line-height: 28px;
+            border-radius: 50%;
+            border: 2px solid #d4af37;
+            box-sizing: content-box;
+        }
         .title {
             font-size: 18px;
             font-weight: bold;
@@ -85,11 +85,11 @@
             margin-bottom: 8px;
         }
         .message {
-            font-size: 26px;
+            font-size: 24px;
             color: #1a1a1a;
-            line-height: 1.4;
+            line-height: 1.6;
             font-weight: bold;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
         .footer {
             color: #666666;
@@ -98,21 +98,83 @@
     </style>
 
     <script type="text/javascript">
+
+        // ======== قائمة الأذكار ========
+        var azkar = [
+            {
+                text: "سبحان الله وبحمده\nسبحان الله العظيم",
+                footer: "﴿ ألا بذكر الله تطمئن القلوب ﴾"
+            },
+            {
+                text: "لا إله إلا الله\nوحده لا شريك له",
+                footer: "أفضل ما قاله النبيون — صلى الله عليه وسلم"
+            },
+            {
+                text: "الحمد لله رب العالمين",
+                footer: "الحمد لله تملأ الميزان — صلى الله عليه وسلم"
+            },
+            {
+                text: "اللهم صلِّ وسلم\nعلى نبينا محمد",
+                footer: "من صلى عليّ مرة صلى الله عليه عشرًا"
+            },
+            {
+                text: "أستغفر الله العظيم\nوأتوب إليه",
+                footer: "إن الله يحب التوابين ويحب المتطهرين"
+            },
+            {
+                text: "لا حول ولا قوة\nإلا بالله",
+                footer: "كنز من كنوز الجنة — صلى الله عليه وسلم"
+            },
+            {
+                text: "سبحان الله والحمد لله\nولا إله إلا الله والله أكبر",
+                footer: "أحب الكلام إلى الله — صلى الله عليه وسلم"
+            },
+            {
+                text: "اللهم اغفر لي\nوارحمني واهدني وعافني وارزقني",
+                footer: "من أجمع الأدعية النبوية"
+            },
+            {
+                text: "حسبي الله\nونعم الوكيل",
+                footer: "﴿ ومن يتوكل على الله فهو حسبه ﴾"
+            },
+            {
+                text: "اللهم إني أسألك الجنة\nوأعوذ بك من النار",
+                footer: "من دعا بهما ثلاثاً شفعت له الجنة"
+            },
+            {
+                text: "سبحان الله وبحمده\nعدد خلقه ورضا نفسه وزنة عرشه ومداد كلماته",
+                footer: "تزن ما لا يوزن — صلى الله عليه وسلم"
+            },
+            {
+                text: "بسم الله الرحمن الرحيم",
+                footer: "﴿ وذكر اسم ربك وتبتل إليه تبتيلا ﴾"
+            }
+        ];
+        // ================================
+
         window.onload = function() {
             var width = 320;
             var height = 340;
-            
+
+            // اختيار ذكر عشوائي من القائمة
+            var randomIndex = Math.floor(Math.random() * azkar.length);
+            var selected = azkar[randomIndex];
+
+            // عرض النص مع دعم السطر الجديد
+            document.getElementById("zekrText").innerHTML = selected.text.replace(/\n/g, "<br>");
+            document.getElementById("zekrFooter").innerHTML = selected.footer;
+
             // تحديد الحجم وتثبيت الموقع في الزاوية اليمنى السفلية
             window.resizeTo(width, height);
             window.moveTo(screen.availWidth - width - 15, screen.availHeight - height - 20);
-            
+
             // إجبار النافذة على الظهور في صدارة كل البرامج (HWND_TOPMOST)
             try {
                 var shell = new ActiveXObject("WScript.Shell");
                 var pinTopCommand = 'powershell -WindowStyle Hidden -Command "$w=Add-Type -MemberDefinition \'[DllImport(\\\"user32.dll\\\")]public static extern IntPtr FindWindow(string c,string n);[DllImport(\\\"user32.dll\\\")]public static extern bool SetWindowPos(IntPtr h,IntPtr a,int x,int y,int cx,int cy,uint f);\' -Name W -PassThru; $h=$w::FindWindow(\'HTML Application Host Window Class\',$null); $w::SetWindowPos($h,-1,0,0,0,0,3)"';
                 shell.Run(pinTopCommand, 0, false);
             } catch(e) {}
-            
+
             // إغلاق ذاتي بعد 30 ثانية
             setTimeout(function() {
                 window.close();
@@ -124,8 +186,8 @@
     <div class="card">
         <div class="title">✦ تذكير بذكر الله ✦</div>
         <div class="divider">❁ ❁ ❁</div>
-        <div class="message">سبحان الله وبحمده<br>سبحان الله العظيم</div>
-        <div class="footer">﴿ ألا بذكر الله تطمئن القلوب ﴾</div>
+        <div class="message" id="zekrText"></div>
+        <div class="footer" id="zekrFooter"></div>
     </div>
 </body>
 </html>
