@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>تذكير بذكر الله</title>
+    <HTA:APPLICATION
+        ID="ZekrApp"
+        APPLICATIONNAME="ZekrApp"
+        BORDER="none"
+        CAPTION="no"
+        ICON="zekr.ico"
+        SHOWINTASKBAR="no"
+        SINGLEINSTANCE="yes"
+        SYSMENU="no"
+        WINDOWSTATE="normal"
+        INNERBORDER="no"
+        SCROLL="no"
+        MaximizeButton="no"
+        MinimizeButton="no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #0f4c3a;
+            direction: rtl;
+        }
+        body {
+            font-family: 'Traditional Arabic', 'Amiri', 'Segoe UI', Tahoma, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+        .card {
+            background-color: #ffffff;
+            border: 3px solid #d4af37;
+            border-radius: 16px;
+            padding: 18px 20px;
+            width: 100%;
+            height: 100%;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.45);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .card::before {
+    content: "🌙";
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    font-size: 16px;
+    width: 30px;
+    height: 30px;
+    line-height: 28px;
+    border-radius: 50%;
+    border: 2px solid #d4af37;
+    box-sizing: content-box;
+}
+        .title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #0f4c3a;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+        .divider {
+            color: #d4af37;
+            font-size: 12px;
+            letter-spacing: 4px;
+            margin-bottom: 8px;
+        }
+        .message {
+            font-size: 26px;
+            color: #1a1a1a;
+            line-height: 1.4;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .footer {
+            color: #666666;
+            font-size: 13px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        window.onload = function() {
+            var width = 320;
+            var height = 340;
+            
+            // تحديد الحجم وتثبيت الموقع في الزاوية اليمنى السفلية
+            window.resizeTo(width, height);
+            window.moveTo(screen.availWidth - width - 15, screen.availHeight - height - 20);
+            
+            // إجبار النافذة على الظهور في صدارة كل البرامج (HWND_TOPMOST)
+            try {
+                var shell = new ActiveXObject("WScript.Shell");
+                var pinTopCommand = 'powershell -WindowStyle Hidden -Command "$w=Add-Type -MemberDefinition \'[DllImport(\\\"user32.dll\\\")]public static extern IntPtr FindWindow(string c,string n);[DllImport(\\\"user32.dll\\\")]public static extern bool SetWindowPos(IntPtr h,IntPtr a,int x,int y,int cx,int cy,uint f);\' -Name W -PassThru; $h=$w::FindWindow(\'HTML Application Host Window Class\',$null); $w::SetWindowPos($h,-1,0,0,0,0,3)"';
+                shell.Run(pinTopCommand, 0, false);
+            } catch(e) {}
+            
+            // إغلاق ذاتي بعد 30 ثانية
+            setTimeout(function() {
+                window.close();
+            }, 30000);
+        };
+    </script>
+</head>
+<body>
+    <div class="card">
+        <div class="title">✦ تذكير بذكر الله ✦</div>
+        <div class="divider">❁ ❁ ❁</div>
+        <div class="message">سبحان الله وبحمده<br>سبحان الله العظيم</div>
+        <div class="footer">﴿ ألا بذكر الله تطمئن القلوب ﴾</div>
+    </div>
+</body>
+</html>
