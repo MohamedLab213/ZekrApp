@@ -1,9 +1,11 @@
 Set WshShell = CreateObject("WScript.Shell")
+Set fso = CreateObject("Scripting.FileSystemObject")
+
+' تحديد مسار ملف الواجهة تلقائياً في نفس مجلد السكربت
+scriptDir = fso.GetParentFolderName(WScript.ScriptFullName)
+htaPath = fso.BuildPath(scriptDir, "Zekr.hta")
 
 Do While True
-    ' مسار ملف الواجهة
-    htaPath = "C:\Users\HP\Desktop\Zekr.hta"
-    
     ' تشغيل النافذة في مسار مستقل
     WshShell.Run "mshta.exe """ & htaPath & """", 1, False
     
